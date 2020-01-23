@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'styling.dart';
+import 'content.dart';
+
 
 class SideNavBar extends StatefulWidget {
+
   @override
   _SideNavBarState createState() => _SideNavBarState();
 }
 
 class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMixin{
-
+  
   int idx = 5;
   double previousPosition = 825.0;
   
@@ -15,12 +18,30 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
   Animation<double> circleFraction;
   AnimationController controller;
 
+  Animation curvedAnimation;
+
   @override
   void initState() {
+
     controller = AnimationController(
-      duration: const Duration(milliseconds: 1000), vsync: this
+      duration: const Duration(milliseconds: 500), vsync: this
     );
+    curvedAnimation = CurvedAnimation(parent: controller, curve: Curves.easeInOut);
     super.initState();
+  }
+
+
+  void playAnimation(double pos) {
+    circleFraction = Tween(begin: previousPosition, end: pos).animate(curvedAnimation)
+      ..addListener(() {
+        setState(() {
+          previousPosition = _circleFraction;
+          _circleFraction = circleFraction.value;
+        });
+        
+      });
+
+    controller.forward(from: 0.0);
   }
 
   @override
@@ -46,8 +67,7 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: GestureDetector(
                 onTap: () {
-                  _playAnimation(115.0);
-                  controller.forward(from: 0.0);
+                  playAnimation(115.0);
                 },
                 child: Icon(Icons.account_box, size: 32.0, color: Colors.black,)),
           ),
@@ -55,15 +75,15 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: GestureDetector(
                 onTap: () {
-                  _playAnimation(180.0);
-                  controller.forward(from: 0.0);
+                  playAnimation(180.0);
+                   
                 },
                 child: Icon(Icons.star, size: 32.0, color: Colors.black,)),
           ),
           GestureDetector(
               onTap: () {
-                _playAnimation(380.0);
-                controller.forward(from: 0.0);
+                playAnimation(380.0);
+                
               },
               child: Padding(
                   padding: const EdgeInsets.only(bottom: 32.0, top: 128.0),
@@ -76,8 +96,8 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
                   ))),
           GestureDetector(
               onTap: () {
-                _playAnimation(530.0);
-                controller.forward(from: 0.0);
+                playAnimation(530.0);
+                
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -90,8 +110,8 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
                   ))),
           GestureDetector(
               onTap: () {
-                _playAnimation(685.0);
-                controller.forward(from: 0.0);
+                playAnimation(685.0);
+                
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -104,8 +124,8 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
                   ))),
           GestureDetector(
               onTap: () {        
-                _playAnimation(825.0);
-                controller.forward(from: 0.0);
+                playAnimation(825.0);
+                
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -121,18 +141,14 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
     );
   }
 
-  _playAnimation(double pos) {
-    circleFraction = Tween(begin: previousPosition, end: pos).animate(controller)
-      ..addListener(() {
-        setState(() {
-          previousPosition = _circleFraction;
-          _circleFraction = circleFraction.value;
-        });
-        
-      });
+
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
-
 
 class CirclePainter extends CustomPainter {
 

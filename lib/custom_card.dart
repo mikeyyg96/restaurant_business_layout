@@ -105,7 +105,7 @@ class _CustomCardState extends State<CustomCard> {
         ),
         Positioned(
           right: 100,
-          bottom: 250,
+          bottom: 300,
           child: Image.asset(
             widget.img,
             fit: BoxFit.cover,

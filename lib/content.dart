@@ -5,26 +5,68 @@ import 'package:restaurant_business_layout/styling.dart';
 import 'custom_card.dart';
 
 class ContentPage extends StatefulWidget {
+
   @override
   _ContentPageState createState() => _ContentPageState();
 }
 
 class _ContentPageState extends State<ContentPage> {
+
+  
+  PageController controller;
+  
+  @override
+  void initState() {
+    controller = PageController(
+      initialPage: 6
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Container(
-        height: double.infinity,
-        color: Theme.of(context).primaryColor,
-        child: Column(
-          children: <Widget>[
-            title(),
-            filterButtons(),
-            Expanded(child: foodItems()),
-            checkoutButton()
-          ],
-        ),
+      child: PageView(
+        controller: controller,
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          menuSlides(),
+          menuSlides(),
+          menuSlides(),
+          menuSlides(),
+          menuSlides(),
+          menuSlides(),
+        ],
+        onPageChanged: (int idx) {
+          print('page is: $idx');
+        },
       )
+    );
+  }
+
+  void changeSlide(int idx) {
+    setState(() {
+      controller.animateToPage(
+        idx,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut
+      );
+    });
+  }
+
+
+  Widget menuSlides() {
+    return Container(
+      height: double.infinity,
+      color: Theme.of(context).primaryColor,
+      child: Column(
+        children: <Widget>[
+          title(),
+          filterButtons(),
+          Expanded(child: foodItems()),
+          checkoutButton()
+        ],
+      ),
     );
   }
 
@@ -83,8 +125,9 @@ class _ContentPageState extends State<ContentPage> {
       height: MediaQuery.of(context).size.height / 7,
       child: Center(
         child: RaisedButton(
-          onPressed: () {},
-          
+          onPressed: () {
+            changeSlide(0);
+          },
           color: Color(0xFF3DDAD7),
           child: Text('Checkout: 0 items selected (\$0.00)', style: stylingSmall()),
         ),
@@ -109,4 +152,10 @@ class _ContentPageState extends State<ContentPage> {
     CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
     CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
   ];
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 }
