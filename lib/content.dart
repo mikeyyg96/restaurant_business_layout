@@ -78,8 +78,8 @@ class ContentPageState extends State<ContentPage> {
     setState(() {
       controller.animateToPage(
         idx,
-        duration: Duration(milliseconds: 1000),
-        curve: Curves.easeInOut
+        duration: Duration(milliseconds: 500),
+        curve: Curves.slowMiddle
       );
     });
   }
