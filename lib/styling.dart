@@ -6,6 +6,12 @@ TextStyle stylingSmall() {
     fontSize: 20.0
   );
 }
+TextStyle stylingSmallGray() {
+  return TextStyle(
+    color: Colors.black26,
+    fontSize: 20.0
+  );
+}
 
 TextStyle stylingMedium() {
   return TextStyle(

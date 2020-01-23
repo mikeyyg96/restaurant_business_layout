@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_business_layout/cart.dart';
+import 'package:restaurant_business_layout/content.dart';
+import 'package:restaurant_business_layout/customize.dart';
+import 'package:restaurant_business_layout/frame.dart';
 import 'package:restaurant_business_layout/styling.dart';
 
 class CustomCard extends StatefulWidget {
+  CustomCard(
+      {this.food, this.img, this.subtitle, this.description, this.calories, this.tag});
 
-  CustomCard({this.food, this.img, this.subtitle, this.description, this.calories});
-
-  final String food, img, subtitle, description;
+  final String food, img, subtitle, description, tag;
   final int calories;
 
   @override
@@ -13,8 +17,9 @@ class CustomCard extends StatefulWidget {
 }
 
 class _CustomCardState extends State<CustomCard> {
-
   TextEditingController txt = new TextEditingController(text: '1');
+  // for now fixed price
+  double price = 4.25;
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +35,13 @@ class _CustomCardState extends State<CustomCard> {
                     borderRadius: BorderRadius.circular(16.0)),
                 child: Column(
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.info,
-                            color: Colors.black.withOpacity(0.7),
-                          ),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        '\$$price',
+                        style: stylingMedium(),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     SizedBox(
                       height: 50.0,
@@ -57,7 +58,17 @@ class _CustomCardState extends State<CustomCard> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  int num = int.parse(txt.text);
+                                  if (num > 1) {
+                                    num -= 1;
+                                  } else {
+                                    num -= 0;
+                                  }
+                                  txt.text = num.toString();
+                                });
+                              },
                               icon: Icon(Icons.remove_circle_outline),
                             )),
                         Expanded(
@@ -72,7 +83,13 @@ class _CustomCardState extends State<CustomCard> {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  int num = int.parse(txt.text);
+                                  num += 1;
+                                  txt.text = num.toString();
+                                });
+                              },
                               icon: Icon(Icons.add_circle_outline),
                             )),
                       ],
@@ -86,15 +103,44 @@ class _CustomCardState extends State<CustomCard> {
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: FlatButton(
-                            onPressed: () {},
-                            child: Text('Customize', style: stylingSmall(),),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    transitionDuration: Duration(milliseconds: 1000),
+                                    pageBuilder: (_, __, ___) => CustomizePage(
+                                            img: widget.img,
+                                            food: widget.food,
+                                            subtitle: widget.subtitle,
+                                            description: widget.description,
+                                          ))
+                                  );
+                            },
+                            child: Text(
+                              'Customize',
+                              style: stylingSmall(),
+                            ),
                           ),
                         ),
                         Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: RaisedButton(
-                              onPressed: () {},
-                              child: Text('Add to Cart', style: stylingSmall(),),
+                              onPressed: () {
+                                CartItem item;
+                                for (int i = 0; i < int.parse(txt.text); i++) {
+                                  item = new CartItem(
+                                      numItems: int.parse(txt.text),
+                                      price: price);
+                                  ContentPageState.cart.add(item);
+                                }
+                                ContentPageState.total += item.calculateTotal(
+                                    int.parse(txt.text), price);
+                                pageViewKey.currentState.refresh();
+                              },
+                              child: Text(
+                                'Add to Cart',
+                                style: stylingSmall(),
+                              ),
                               color: Color(0xFF3DDAD7),
                             ))
                       ],
@@ -104,15 +150,17 @@ class _CustomCardState extends State<CustomCard> {
               )),
         ),
         Positioned(
-          right: 100,
-          bottom: 300,
-          child: Image.asset(
-            widget.img,
-            fit: BoxFit.cover,
-            width: 200,
-            height: 200,
-          ),
-        ),
+            right: 100,
+            bottom: 300,
+            child: Hero(
+              tag: '${widget.tag}',
+              child: Image.asset(
+                widget.img,
+                fit: BoxFit.cover,
+                width: 200,
+                height: 200,
+              ),
+            ))
       ],
     );
   }

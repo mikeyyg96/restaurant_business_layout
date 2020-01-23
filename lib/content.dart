@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_business_layout/cart.dart';
 import 'package:restaurant_business_layout/custom_button.dart';
 import 'package:restaurant_business_layout/frame.dart';
 import 'package:restaurant_business_layout/styling.dart';
@@ -18,6 +19,8 @@ class ContentPageState extends State<ContentPage> {
   
   
   PageController controller;
+  static List<CartItem> cart = new List<CartItem>();
+  static double total = 0.0;
   
   @override
   void initState() {
@@ -27,8 +30,10 @@ class ContentPageState extends State<ContentPage> {
     super.initState();
   }
 
-  void imagine() {
-    print('imagine');
+  void refresh() {
+    setState(() {
+      
+    });
   }
 
   @override
@@ -78,7 +83,7 @@ class ContentPageState extends State<ContentPage> {
     setState(() {
       controller.animateToPage(
         idx,
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 750),
         curve: Curves.slowMiddle
       );
     });
@@ -159,28 +164,28 @@ class ContentPageState extends State<ContentPage> {
             changeSlide(0);
           },
           color: Color(0xFF3DDAD7),
-          child: Text('Checkout: 0 items selected (\$0.00)', style: stylingSmall()),
+          child: Text('Checkout: ${cart.length} items selected ( \$${total.toStringAsFixed(2)} )', style: stylingSmall()),
         ),
       ),
     );
   }
 
   var buttons = [
-    CustomButton(color: Colors.yellowAccent, iconData: Icons.local_bar, text: 'Alcholic Drinks',),
-    CustomButton(color: Colors.redAccent, iconData: Icons.whatshot, text: 'Spicy Foods',),
-    CustomButton(color: Colors.greenAccent, iconData: Icons.fastfood, text: 'Popluar Foods',),
-    CustomButton(color: Colors.yellowAccent, iconData: Icons.local_bar, text: 'Alcholic Drinks',),
-    CustomButton(color: Colors.redAccent, iconData: Icons.whatshot, text: 'Spicy Foods',),
-    CustomButton(color: Colors.greenAccent, iconData: Icons.fastfood, text: 'Popluar Foods',),
+    CustomButton(color: Colors.yellowAccent, iconData: Icons.local_bar, text: 'Alcholic Drinks', tag: '1',),
+    CustomButton(color: Colors.redAccent, iconData: Icons.whatshot, text: 'Spicy Foods', tag: '2',),
+    CustomButton(color: Colors.greenAccent, iconData: Icons.fastfood, text: 'Popluar Foods', tag: '3',),
+    CustomButton(color: Colors.yellowAccent, iconData: Icons.local_bar, text: 'Alcholic Drinks', tag: '4',),
+    CustomButton(color: Colors.redAccent, iconData: Icons.whatshot, text: 'Spicy Foods', tag: '5',),
+    CustomButton(color: Colors.greenAccent, iconData: Icons.fastfood, text: 'Popluar Foods', tag: '6',),
   ];
 
   var cards = [
-    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
-    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
-    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
-    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
-    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
-    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '',),
+    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: 'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!', tag: 'food_item',),
+    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '', tag: 'food_item2',),
+    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '', tag: 'food_item3'),
+    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '', tag: 'food_item4',),
+    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '', tag: 'food_item5',),
+    CustomCard(calories: 420, img: 'assets/items/desserts.png',food: 'Coconut', subtitle: 'with strawberries', description: '', tag: 'food_item6'),
   ];
 
   @override

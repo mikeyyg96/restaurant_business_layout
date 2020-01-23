@@ -3,11 +3,12 @@ import 'package:restaurant_business_layout/styling.dart';
 
 class CustomButton extends StatefulWidget {
 
-  CustomButton({this.iconData, this.color, this.text});
+  CustomButton({this.iconData, this.color, this.text, this.tag});
 
   final IconData iconData;
   final Color color;
   final String text;
+  final String tag;
 
   @override
   _CustomButtonState createState() => _CustomButtonState();
@@ -22,6 +23,7 @@ class _CustomButtonState extends State<CustomButton> {
           children: <Widget>[
             Expanded(
               child: FloatingActionButton(
+                heroTag: '${widget.tag}',
                 onPressed: () {},
                 backgroundColor: widget.color,
                 child: Icon(widget.iconData),

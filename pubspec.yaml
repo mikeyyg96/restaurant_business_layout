@@ -32,6 +32,10 @@ flutter:
 
   assets:
     - assets/items/desserts.png
+    - assets/items/coconut_ingredient.png
+    - assets/items/cinnamon_ingredient.png
+    - assets/items/strawberries_ingredient.png
+    - assets/backgrounds/tropical_beach_background.jpg
 
   fonts:
     - family: LemonJuice
