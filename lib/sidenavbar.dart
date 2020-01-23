@@ -27,9 +27,9 @@ class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMi
   void initState() {
 
     controller = AnimationController(
-      duration: const Duration(milliseconds: 500), vsync: this
+      duration: const Duration(milliseconds: 750), vsync: this
     );
-    curvedAnimation = CurvedAnimation(parent: controller, curve: Curves.slowMiddle);
+    curvedAnimation = CurvedAnimation(parent: controller, curve: Curves.easeInOut);
     super.initState();
   }
 
