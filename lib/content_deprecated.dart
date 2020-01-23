@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_business_layout/custom_button.dart';
-import 'package:restaurant_business_layout/frame.dart';
 import 'package:restaurant_business_layout/styling.dart';
 
 import 'custom_card.dart';
-import 'styling.dart';
 
 class ContentPage extends StatefulWidget {
 
-  ContentPage({Key key}) : super(key: key);
-
   @override
-  ContentPageState createState() => ContentPageState();
+  _ContentPageState createState() => _ContentPageState();
 }
 
-class ContentPageState extends State<ContentPage> {
+class _ContentPageState extends State<ContentPage> {
   
   
   PageController controller;
@@ -25,10 +21,6 @@ class ContentPageState extends State<ContentPage> {
       initialPage: 6
     );
     super.initState();
-  }
-
-  void imagine() {
-    print('imagine');
   }
 
   @override
@@ -46,28 +38,6 @@ class ContentPageState extends State<ContentPage> {
           menuSlides(),
         ],
         onPageChanged: (int idx) {
-          switch (idx) {
-            case 0:
-              animationKey.currentState.playAnimation(115.0);
-              break;
-            case 1:
-              animationKey.currentState.playAnimation(180.0);
-              break;
-            case 2:
-              animationKey.currentState.playAnimation(380.0);
-              break;
-            case 3:
-              animationKey.currentState.playAnimation(530.0);
-              break;
-            case 4:
-              animationKey.currentState.playAnimation(685.0);
-              break;
-            case 5:
-              animationKey.currentState.playAnimation(825.0);
-              break;
-            default:
-              break;
-          }
           print('page is: $idx');
         },
       )
@@ -78,7 +48,7 @@ class ContentPageState extends State<ContentPage> {
     setState(() {
       controller.animateToPage(
         idx,
-        duration: Duration(milliseconds: 1000),
+        duration: Duration(milliseconds: 500),
         curve: Curves.easeInOut
       );
     });

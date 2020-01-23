@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'styling.dart';
-import 'content.dart';
 
+import 'frame.dart';
+import 'styling.dart';
 
 class SideNavBar extends StatefulWidget {
 
+  SideNavBar({Key key}) : super(key: key);
+
   @override
-  _SideNavBarState createState() => _SideNavBarState();
+  SideNavBarState createState() => SideNavBarState();
 }
 
-class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMixin{
+
+class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMixin{
   
   int idx = 5;
   double previousPosition = 825.0;
@@ -24,7 +27,7 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
   void initState() {
 
     controller = AnimationController(
-      duration: const Duration(milliseconds: 500), vsync: this
+      duration: const Duration(milliseconds: 1000), vsync: this
     );
     curvedAnimation = CurvedAnimation(parent: controller, curve: Curves.easeInOut);
     super.initState();
@@ -68,6 +71,7 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
             child: GestureDetector(
                 onTap: () {
                   playAnimation(115.0);
+                  pageViewKey.currentState.changeSlide(0);
                 },
                 child: Icon(Icons.account_box, size: 32.0, color: Colors.black,)),
           ),
@@ -76,14 +80,14 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
             child: GestureDetector(
                 onTap: () {
                   playAnimation(180.0);
-                   
+                   pageViewKey.currentState.changeSlide(1);
                 },
                 child: Icon(Icons.star, size: 32.0, color: Colors.black,)),
           ),
           GestureDetector(
               onTap: () {
                 playAnimation(380.0);
-                
+                pageViewKey.currentState.changeSlide(2);
               },
               child: Padding(
                   padding: const EdgeInsets.only(bottom: 32.0, top: 128.0),
@@ -97,7 +101,7 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
           GestureDetector(
               onTap: () {
                 playAnimation(530.0);
-                
+                pageViewKey.currentState.changeSlide(3);
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -111,7 +115,7 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
           GestureDetector(
               onTap: () {
                 playAnimation(685.0);
-                
+                pageViewKey.currentState.changeSlide(4);
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -125,7 +129,7 @@ class _SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateM
           GestureDetector(
               onTap: () {        
                 playAnimation(825.0);
-                
+                pageViewKey.currentState.changeSlide(5);
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
