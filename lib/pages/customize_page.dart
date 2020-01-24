@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_business_layout/styling.dart';
-import 'package:restaurant_business_layout/tile.dart';
+import 'package:restaurant_business_layout/styling/styling.dart';
+import 'package:restaurant_business_layout/tiles/ingredient_tile.dart';
 
 class CustomizePage extends StatefulWidget {
   CustomizePage({this.img, this.food, this.subtitle, this.description});
@@ -16,11 +16,12 @@ class CustomizePage extends StatefulWidget {
 
 class _CustomizePageState extends State<CustomizePage> {
   var tiles = [
-    TilePage(img: 'assets/items/coconut_ingredient.png', ingredient: 'Coconut'),
-    TilePage(
+    IngredientTile(
+        img: 'assets/items/coconut_ingredient.png', ingredient: 'Coconut'),
+    IngredientTile(
         img: 'assets/items/strawberries_ingredient.png',
         ingredient: 'Strawberries'),
-    TilePage(
+    IngredientTile(
         img: 'assets/items/cinnamon_ingredient.png', ingredient: 'Cinnamon'),
   ];
 
@@ -98,15 +99,27 @@ class _CustomizePageState extends State<CustomizePage> {
                       ],
                     ),
                     Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text('Ingredients', style: stylingMedium())),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: tiles.length,
-                        itemBuilder: (BuildContext context, int idx) {
-                          return tiles[idx];
-                        },
+                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                      child: Text(
+                        'Ingredients',
+                        style: stylingMedium(),
+                      ),
+                    ),
+                    Container(
+                        child: ListView.separated(
+                          separatorBuilder: (BuildContext context, int idx) => Divider(
+                            indent: 20.0,
+                            endIndent: 20.0,
+                            color: Colors.black38,
+                          ),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: tiles.length,
+                          itemBuilder: (BuildContext context, int idx) {
+                            return tiles[idx];
+                          },
+                        ),
+                      
                     ),
                   ],
                 ),

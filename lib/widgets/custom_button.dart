@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_business_layout/styling.dart';
+import 'package:restaurant_business_layout/styling/styling.dart';
 
 class CustomButton extends StatefulWidget {
 

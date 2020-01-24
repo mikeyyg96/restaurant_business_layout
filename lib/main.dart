@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'frame.dart';
+import 'package:restaurant_business_layout/pages/frame_page.dart';
 
 void main() => runApp(MyApp());
 

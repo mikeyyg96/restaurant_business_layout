@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_business_layout/cart.dart';
-import 'package:restaurant_business_layout/content.dart';
-import 'package:restaurant_business_layout/customize.dart';
-import 'package:restaurant_business_layout/frame.dart';
-import 'package:restaurant_business_layout/styling.dart';
+import 'package:restaurant_business_layout/objects/cart.dart';
+import 'package:restaurant_business_layout/pages/content_page.dart';
+import 'package:restaurant_business_layout/pages/customize_page.dart';
+import 'package:restaurant_business_layout/pages/frame_page.dart';
+import 'package:restaurant_business_layout/styling/styling.dart';
 
 class CustomCard extends StatefulWidget {
   CustomCard(
@@ -126,9 +126,9 @@ class _CustomCardState extends State<CustomCard> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: RaisedButton(
                               onPressed: () {
-                                CartItem item;
+                                FoodItem item;
                                 for (int i = 0; i < int.parse(txt.text); i++) {
-                                  item = new CartItem(
+                                  item = new FoodItem(
                                       numItems: int.parse(txt.text),
                                       price: price);
                                   ContentPageState.cart.add(item);

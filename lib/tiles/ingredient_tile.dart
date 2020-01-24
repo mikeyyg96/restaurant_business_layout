@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_business_layout/styling.dart';
+import 'package:restaurant_business_layout/styling/styling.dart';
 
-class TilePage extends StatefulWidget {
-  TilePage({this.ingredient, this.img});
+class IngredientTile extends StatefulWidget {
+  IngredientTile({this.ingredient, this.img});
 
   final String ingredient, img;
 
@@ -10,7 +10,7 @@ class TilePage extends StatefulWidget {
   _TilePageState createState() => _TilePageState();
 }
 
-class _TilePageState extends State<TilePage> {
+class _TilePageState extends State<IngredientTile> {
   @override
   Widget build(BuildContext context) {
      return Container(
