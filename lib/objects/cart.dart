@@ -1,26 +1,30 @@
 class Cart {
-  Cart({this.cartItem});
+  Cart({this.foodItems});
 
-  final FoodItem cartItem;
+  final List<FoodItem> foodItems;
 }
 
 class FoodItem {
-  // TO DO: revise this so that Food Item is part of cart and has an Ingredient
+  // Change it to Food Item
+  FoodItem(
+      {this.name,
+      this.subtitle,
+      this.description,
+      this.price,
+      this.img,
+      this.calories,
+      this.ingredients,
+      this.tag});
 
-  FoodItem({this.numItems, this.price});
-
-  final int numItems;
-  final double price;
-
-  double calculateTotal(int numItems, double price) {
-    return price * numItems;
-  }
+  final String name, subtitle, description, img, tag;
+  final double price, calories;
+  final List<Ingredient> ingredients;
 }
 
 class Ingredient {
   // TO DO: revise this so that Ingredient is part of Food Item
-  Ingredient({this.img, this.priceUpcharge, this.name});
+  Ingredient({this.img, this.priceUpcharge, this.name, this.calories});
 
   final String img, name;
-  final double priceUpcharge;
+  final double priceUpcharge, calories;
 }

@@ -13,14 +13,59 @@ class ContentPage extends StatefulWidget {
   ContentPageState createState() => ContentPageState();
 }
 
+List<Ingredient> testIngredients = [
+  Ingredient(
+      name: 'Coconuts',
+      img: 'assets/items/coconut_ingredient.png',
+      priceUpcharge: 0.5,
+      calories: 200),
+  Ingredient(
+      name: 'Strawberries',
+      img: 'assets/items/strawberries_ingredient.png',
+      priceUpcharge: 0.5,
+      calories: 200),
+  Ingredient(
+      name: 'Coconuts',
+      img: 'assets/items/cinnamon_ingredient.png',
+      priceUpcharge: 0.5,
+      calories: 200),
+];
+
+var testItems = [
+  FoodItem(
+      name: 'Coconut',
+      subtitle: 'with strawberries',
+      description:
+          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+      price: 4.25,
+      img: 'assets/items/desserts.png',
+      calories: 319.5,
+      ingredients: testIngredients,
+      tag: 'food_item_1'),
+  FoodItem(
+      name: 'Coconut',
+      subtitle: 'with strawberries',
+      description:
+          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+      price: 4.25,
+      img: 'assets/items/desserts.png',
+      calories: 319.5,
+      ingredients: testIngredients,
+      tag: 'food_item_2'),
+  FoodItem(
+      name: 'Coconut',
+      subtitle: 'with strawberries',
+      description:
+          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+      price: 4.25,
+      img: 'assets/items/desserts.png',
+      calories: 319.5,
+      ingredients: testIngredients,
+      tag: 'food_item_3'),
+];
+
 class ContentPageState extends State<ContentPage> {
-
-  final framePage = new FramePage(key: frameKey,);
-  
-
   PageController controller;
-  static List<FoodItem> cart = new List<FoodItem>();
-  static double total = 0.0;
 
   @override
   void initState() {
@@ -138,9 +183,11 @@ class ContentPageState extends State<ContentPage> {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: cards.length,
+        itemCount: testItems.length,
         itemBuilder: (BuildContext ctx, int idx) {
-          return cards[idx];
+          return CustomCard(
+            foodItem: testItems[idx],
+          );
         },
       ),
     );
@@ -158,8 +205,7 @@ class ContentPageState extends State<ContentPage> {
         child: Row(
           children: <Widget>[
             Expanded(
-              child: Text(
-                  'Checkout: ${cart.length} items selected ( \$${total.toStringAsFixed(2)} )',
+              child: Text('Checkout: 0 items selected ( \$0.00 )',
                   style: stylingSmall()),
             ),
             Icon(
@@ -209,56 +255,6 @@ class ContentPageState extends State<ContentPage> {
       text: 'Popluar Foods',
       tag: '6',
     ),
-  ];
-
-  var cards = [
-    CustomCard(
-      calories: 420,
-      img: 'assets/items/desserts.png',
-      food: 'Coconut',
-      subtitle: 'with strawberries',
-      description:
-          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
-      tag: 'food_item',
-    ),
-    CustomCard(
-      calories: 420,
-      img: 'assets/items/desserts.png',
-      food: 'Coconut',
-      subtitle: 'with strawberries',
-      description: '',
-      tag: 'food_item2',
-    ),
-    CustomCard(
-        calories: 420,
-        img: 'assets/items/desserts.png',
-        food: 'Coconut',
-        subtitle: 'with strawberries',
-        description: '',
-        tag: 'food_item3'),
-    CustomCard(
-      calories: 420,
-      img: 'assets/items/desserts.png',
-      food: 'Coconut',
-      subtitle: 'with strawberries',
-      description: '',
-      tag: 'food_item4',
-    ),
-    CustomCard(
-      calories: 420,
-      img: 'assets/items/desserts.png',
-      food: 'Coconut',
-      subtitle: 'with strawberries',
-      description: '',
-      tag: 'food_item5',
-    ),
-    CustomCard(
-        calories: 420,
-        img: 'assets/items/desserts.png',
-        food: 'Coconut',
-        subtitle: 'with strawberries',
-        description: '',
-        tag: 'food_item6'),
   ];
 
   @override

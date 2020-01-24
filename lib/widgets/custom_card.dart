@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_business_layout/objects/cart.dart';
-import 'package:restaurant_business_layout/pages/content_page.dart';
 import 'package:restaurant_business_layout/pages/customize_page.dart';
 import 'package:restaurant_business_layout/pages/frame_page.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 
 class CustomCard extends StatefulWidget {
-  CustomCard(
-      {this.food, this.img, this.subtitle, this.description, this.calories, this.tag});
+  CustomCard({this.foodItem});
 
-  final String food, img, subtitle, description, tag;
-  final int calories;
+  final FoodItem foodItem;
 
   @override
   _CustomCardState createState() => _CustomCardState();
@@ -38,7 +35,7 @@ class _CustomCardState extends State<CustomCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        '\$$price',
+                        '\$${widget.foodItem.price.toStringAsFixed(2)}',
                         style: stylingMedium(),
                         textAlign: TextAlign.center,
                       ),
@@ -47,10 +44,10 @@ class _CustomCardState extends State<CustomCard> {
                       height: 50.0,
                     ),
                     Text(
-                      widget.food,
+                      widget.foodItem.name,
                       style: stylingMedium(),
                     ),
-                    Text(widget.subtitle, style: stylingSmall()),
+                    Text(widget.foodItem.subtitle, style: stylingSmall()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -105,16 +102,15 @@ class _CustomCardState extends State<CustomCard> {
                           child: FlatButton(
                             onPressed: () {
                               Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    transitionDuration: Duration(milliseconds: 1000),
-                                    pageBuilder: (_, __, ___) => CustomizePage(
-                                            img: widget.img,
-                                            food: widget.food,
-                                            subtitle: widget.subtitle,
-                                            description: widget.description,
-                                          ))
-                                  );
+                                context,
+                                PageRouteBuilder(
+                                  transitionDuration:
+                                      Duration(milliseconds: 1000),
+                                  pageBuilder: (_, __, ___) => CustomizePage(
+                                    foodItem: widget.foodItem,
+                                  ),
+                                ),
+                              );
                             },
                             child: Text(
                               'Customize',
@@ -126,15 +122,6 @@ class _CustomCardState extends State<CustomCard> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: RaisedButton(
                               onPressed: () {
-                                FoodItem item;
-                                for (int i = 0; i < int.parse(txt.text); i++) {
-                                  item = new FoodItem(
-                                      numItems: int.parse(txt.text),
-                                      price: price);
-                                  ContentPageState.cart.add(item);
-                                }
-                                ContentPageState.total += item.calculateTotal(
-                                    int.parse(txt.text), price);
                                 pageViewKey.currentState.refresh();
                               },
                               child: Text(
@@ -153,9 +140,9 @@ class _CustomCardState extends State<CustomCard> {
             right: 100,
             bottom: 300,
             child: Hero(
-              tag: '${widget.tag}',
+              tag: '${widget.foodItem.tag}',
               child: Image.asset(
-                widget.img,
+                widget.foodItem.img,
                 fit: BoxFit.cover,
                 width: 200,
                 height: 200,

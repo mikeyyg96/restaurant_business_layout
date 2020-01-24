@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_business_layout/objects/cart.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 import 'package:restaurant_business_layout/tiles/ingredient_tile.dart';
 
 class CustomizePage extends StatefulWidget {
-  CustomizePage({this.img, this.food, this.subtitle, this.description});
+  CustomizePage({this.foodItem});
 
-  final String img;
-  final String food;
-  final String subtitle;
-  final String description;
+  final FoodItem foodItem;
 
   @override
   _CustomizePageState createState() => _CustomizePageState();
@@ -36,17 +34,19 @@ class _CustomizePageState extends State<CustomizePage> {
             color: Theme.of(context).primaryColor,
             child: Row(
               children: <Widget>[
-                Hero(tag: 'food_item', child: Image.asset(widget.img)),
+                Hero(
+                    tag: widget.foodItem.tag,
+                    child: Image.asset(widget.foodItem.img)),
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        widget.food,
+                        widget.foodItem.name,
                         style: stylingMedium(),
                       ),
                       Text(
-                        widget.subtitle,
+                        widget.foodItem.subtitle,
                         style: stylingSmall(),
                       )
                     ],
@@ -70,7 +70,7 @@ class _CustomizePageState extends State<CustomizePage> {
                     Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          widget.description,
+                          widget.foodItem.description,
                           style: stylingSmall(),
                           textAlign: TextAlign.center,
                         )),
@@ -99,27 +99,28 @@ class _CustomizePageState extends State<CustomizePage> {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+                      padding: const EdgeInsets.only(
+                          left: 16.0, right: 16.0, top: 16.0),
                       child: Text(
                         'Ingredients',
                         style: stylingMedium(),
                       ),
                     ),
                     Container(
-                        child: ListView.separated(
-                          separatorBuilder: (BuildContext context, int idx) => Divider(
-                            indent: 20.0,
-                            endIndent: 20.0,
-                            color: Colors.black38,
-                          ),
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: tiles.length,
-                          itemBuilder: (BuildContext context, int idx) {
-                            return tiles[idx];
-                          },
+                      child: ListView.separated(
+                        separatorBuilder: (BuildContext context, int idx) =>
+                            Divider(
+                          indent: 20.0,
+                          endIndent: 20.0,
+                          color: Colors.black38,
                         ),
-                      
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: tiles.length,
+                        itemBuilder: (BuildContext context, int idx) {
+                          return tiles[idx];
+                        },
+                      ),
                     ),
                   ],
                 ),

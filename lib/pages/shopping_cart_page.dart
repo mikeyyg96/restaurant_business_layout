@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_business_layout/objects/cart.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 
 class ShoppingCartPage extends StatefulWidget {
+  ShoppingCartPage({this.cart});
+
+  final Cart cart;
+
   @override
   _ShoppingCartState createState() => _ShoppingCartState();
 }
@@ -32,8 +37,15 @@ class _ShoppingCartState extends State<ShoppingCartPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
-                    child: ListView.builder(
-
+                    child: SingleChildScrollView(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        itemCount: widget.cart.foodItems.length,
+                        itemBuilder: (BuildContext ctx, int idx) {
+                          return 
+                        },
+                      ),
                     ),
                   )
                 ],
@@ -44,8 +56,4 @@ class _ShoppingCartState extends State<ShoppingCartPage> {
       ),
     );
   }
-
-  var items = [
-
-  ];
 }
