@@ -43,7 +43,7 @@ class _ShoppingCartState extends State<ShoppingCartPage> {
                         physics: ClampingScrollPhysics(),
                         itemCount: widget.cart.foodItems.length,
                         itemBuilder: (BuildContext ctx, int idx) {
-                          return 
+                          return null; // TODO
                         },
                       ),
                     ),
