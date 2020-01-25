@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_business_layout/objects/cart.dart';
 
 import 'package:restaurant_business_layout/pages/content_page.dart';
+import 'package:restaurant_business_layout/pages/shopping_cart_page.dart';
 import 'package:restaurant_business_layout/widgets/sidenavbar.dart';
 
 final animationKey = GlobalKey<SideNavBarState>();
@@ -19,9 +21,11 @@ class FramePageState extends State<FramePage> {
   PageController pageController = new PageController(initialPage: 0);
   bool isScrollable = false;
 
-  void changeSlide(int idx) {
-    print('hello world');
+  List<FoodItem> cart;
+
+  void changeSlide(int idx, {List<FoodItem> cart}) {
     setState(() {
+      this.cart = cart;
       pageController.animateToPage(idx,
           duration: Duration(milliseconds: 750), curve: Curves.slowMiddle);
     });
@@ -57,9 +61,7 @@ class FramePageState extends State<FramePage> {
                 ),
               ],
             ),
-            Container(
-              color: Colors.blueAccent,
-            )
+            ShoppingCartPage(cart: cart,)
           ],
         ),
       ),

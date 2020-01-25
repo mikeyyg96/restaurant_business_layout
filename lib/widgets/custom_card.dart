@@ -128,7 +128,7 @@ class _CustomCardState extends State<CustomCard> {
                                 'Add to Cart',
                                 style: stylingSmall(),
                               ),
-                              color: Color(0xFF3DDAD7),
+                              color: Colors.greenAccent,//Color(0xFF3DDAD7),
                             ))
                       ],
                     )

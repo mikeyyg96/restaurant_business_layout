@@ -23,8 +23,9 @@ class FoodItem {
 
 class Ingredient {
   // TO DO: revise this so that Ingredient is part of Food Item
-  Ingredient({this.img, this.priceUpcharge, this.name, this.calories});
+  Ingredient({this.img, this.priceUpcharge, this.name, this.calories, this.isRemoved});
 
   final String img, name;
   final double priceUpcharge, calories;
+  final bool isRemoved;
 }

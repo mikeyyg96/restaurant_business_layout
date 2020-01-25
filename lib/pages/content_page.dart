@@ -17,18 +17,21 @@ List<Ingredient> testIngredients = [
   Ingredient(
       name: 'Coconuts',
       img: 'assets/items/coconut_ingredient.png',
-      priceUpcharge: 0.5,
-      calories: 200),
+      priceUpcharge: 1.50,
+      calories: 200,
+      isRemoved: false),
   Ingredient(
       name: 'Strawberries',
       img: 'assets/items/strawberries_ingredient.png',
-      priceUpcharge: 0.5,
-      calories: 200),
+      priceUpcharge: 1.25,
+      calories: 200,
+      isRemoved: false),
   Ingredient(
-      name: 'Coconuts',
+      name: 'Cinnamon',
       img: 'assets/items/cinnamon_ingredient.png',
-      priceUpcharge: 0.5,
-      calories: 200),
+      priceUpcharge: 0,
+      calories: 200,
+      isRemoved: true),
 ];
 
 var testItems = [
@@ -62,6 +65,36 @@ var testItems = [
       calories: 319.5,
       ingredients: testIngredients,
       tag: 'food_item_3'),
+  FoodItem(
+      name: 'Coconut',
+      subtitle: 'with strawberries',
+      description:
+          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+      price: 4.25,
+      img: 'assets/items/desserts.png',
+      calories: 319.5,
+      ingredients: testIngredients,
+      tag: 'food_item_4'),
+  FoodItem(
+      name: 'Coconut',
+      subtitle: 'with strawberries',
+      description:
+          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+      price: 4.25,
+      img: 'assets/items/desserts.png',
+      calories: 319.5,
+      ingredients: testIngredients,
+      tag: 'food_item_5'),
+  FoodItem(
+      name: 'Coconut',
+      subtitle: 'with strawberries',
+      description:
+          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+      price: 4.25,
+      img: 'assets/items/desserts.png',
+      calories: 319.5,
+      ingredients: testIngredients,
+      tag: 'food_item_6'),
 ];
 
 class ContentPageState extends State<ContentPage> {
@@ -195,13 +228,13 @@ class ContentPageState extends State<ContentPage> {
 
   Widget checkoutButton() {
     return Container(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.all(36.0),
       height: MediaQuery.of(context).size.height / 7,
       child: RaisedButton(
         onPressed: () {
-          frameKey.currentState.changeSlide(1);
+          frameKey.currentState.changeSlide(1, cart: testItems);
         },
-        color: Color(0xFF3DDAD7),
+        color: Colors.greenAccent, //Color(0xFF3DDAD7),
         child: Row(
           children: <Widget>[
             Expanded(
