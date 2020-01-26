@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_business_layout/pages/frame_page.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 
+import 'package:url_launcher/url_launcher.dart';
+
 class SideNavBar extends StatefulWidget {
 
   SideNavBar({Key key}) : super(key: key);
@@ -70,24 +72,26 @@ class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMi
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: GestureDetector(
                 onTap: () {
-                  playAnimation(115.0);
-                  pageViewKey.currentState.changeSlide(0);
+                  //playAnimation(115.0);
+                  //pageViewKey.currentState.changeSlide(0);
+                  launch('tel: 4075081813');
                 },
-                child: Icon(Icons.account_box, size: 32.0, color: Colors.black,)),
+                child: Icon(Icons.phone, size: 32.0, color: Colors.black,)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: GestureDetector(
                 onTap: () {
-                  playAnimation(180.0);
-                   pageViewKey.currentState.changeSlide(1);
+                  //playAnimation(180.0);
+                  //pageViewKey.currentState.changeSlide(1);
+                  launch('mailto:<gallegom58@gmail.com>?subject=Customer Inquiry&body=');
                 },
-                child: Icon(Icons.star, size: 32.0, color: Colors.black,)),
+                child: Icon(Icons.email, size: 32.0, color: Colors.black,)),
           ),
           GestureDetector(
               onTap: () {
                 playAnimation(380.0);
-                pageViewKey.currentState.changeSlide(2);
+                pageViewKey.currentState.changeSlide(0);
               },
               child: Padding(
                   padding: const EdgeInsets.only(bottom: 32.0, top: 128.0),
@@ -101,7 +105,7 @@ class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMi
           GestureDetector(
               onTap: () {
                 playAnimation(530.0);
-                pageViewKey.currentState.changeSlide(3);
+                pageViewKey.currentState.changeSlide(1);
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -115,7 +119,7 @@ class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMi
           GestureDetector(
               onTap: () {
                 playAnimation(685.0);
-                pageViewKey.currentState.changeSlide(4);
+                pageViewKey.currentState.changeSlide(2);
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),
@@ -129,7 +133,7 @@ class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMi
           GestureDetector(
               onTap: () {        
                 playAnimation(825.0);
-                pageViewKey.currentState.changeSlide(5);
+                pageViewKey.currentState.changeSlide(3);
               },
               child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32.0),

@@ -17,7 +17,7 @@ List<Ingredient> testIngredients = [
   Ingredient(
       name: 'Coconuts',
       img: 'assets/items/coconut_ingredient.png',
-      priceUpcharge: 1.50,
+      priceUpcharge: 1.25,
       calories: 200,
       isRemoved: false),
   Ingredient(
@@ -99,15 +99,20 @@ var testItems = [
 
 class ContentPageState extends State<ContentPage> {
   PageController controller;
+  double total = 0.0;
+  int items = 0;
 
   @override
   void initState() {
-    controller = PageController(initialPage: 6);
+    controller = PageController(initialPage: 4);
     super.initState();
   }
 
-  void refresh() {
-    setState(() {});
+  void refresh(double price, int counter) {
+    setState(() {
+      total += (price * counter);
+      items += counter;
+    });
   }
 
   @override
@@ -121,27 +126,19 @@ class ContentPageState extends State<ContentPage> {
         menuSlides(),
         menuSlides(),
         menuSlides(),
-        menuSlides(),
-        menuSlides(),
       ],
       onPageChanged: (int idx) {
         switch (idx) {
           case 0:
-            animationKey.currentState.playAnimation(115.0);
-            break;
-          case 1:
-            animationKey.currentState.playAnimation(180.0);
-            break;
-          case 2:
             animationKey.currentState.playAnimation(380.0);
             break;
-          case 3:
+          case 1:
             animationKey.currentState.playAnimation(530.0);
             break;
-          case 4:
+          case 2:
             animationKey.currentState.playAnimation(685.0);
             break;
-          case 5:
+          case 3:
             animationKey.currentState.playAnimation(825.0);
             break;
           default:
@@ -238,7 +235,7 @@ class ContentPageState extends State<ContentPage> {
         child: Row(
           children: <Widget>[
             Expanded(
-              child: Text('Checkout: 0 items selected ( \$0.00 )',
+              child: Text('Checkout: $items items selected ( \$${total.toStringAsFixed(2)} )',
                   style: stylingSmall()),
             ),
             Icon(

@@ -32,7 +32,7 @@ class _CartTileState extends State<CartTile> {
               Row(
                 children: <Widget>[
                   Text(
-                    '\$' + widget.foodItem.price.toStringAsFixed(2),
+                    '\$ ' + widget.foodItem.price.toStringAsFixed(2),
                     style: stylingSmallGray(),
                   ),
                   Expanded(
@@ -53,7 +53,7 @@ class _CartTileState extends State<CartTile> {
                       ? Row(
                           children: <Widget>[
                             Text(
-                              '\$' +
+                              '\$ ' +
                                   widget.foodItem.ingredients[idx].priceUpcharge
                                       .toStringAsFixed(2),
                               style: stylingSmallGray(),
@@ -70,7 +70,7 @@ class _CartTileState extends State<CartTile> {
                       : Row(
                           children: <Widget>[
                             Text(
-                              '\$' +
+                              '\$ ' +
                                   widget.foodItem.ingredients[idx].priceUpcharge
                                       .toStringAsFixed(2),
                               style: stylingSmallGray(),
@@ -85,18 +85,43 @@ class _CartTileState extends State<CartTile> {
                           ],
                         );
                 },
+              ),
+              Divider(),
+              Row(
+                children: <Widget>[
+                  Text(
+                    '\$ 6.75',
+                    style: stylingSmallGray(),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Total',
+                      style: stylingSmallGray(),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ],
               )
             ],
           ),
         ),
-        Padding(padding: const EdgeInsets.all(32.0), child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(icon: Icon(Icons.add, size: 20), onPressed: () {},),
-            Text('x\t1'),
-            IconButton(icon: Icon(Icons.remove, size: 20), onPressed: () {},),
-          ],
-        ),),
+        Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.add, size: 20),
+                onPressed: () {},
+              ),
+              Text('x\t1'),
+              IconButton(
+                icon: Icon(Icons.remove, size: 20),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
       ],
     ));
   }

@@ -1,9 +1,3 @@
-class Cart {
-  Cart({this.foodItems});
-
-  final List<FoodItem> foodItems;
-}
-
 class FoodItem {
   // Change it to Food Item
   FoodItem(
@@ -14,15 +8,16 @@ class FoodItem {
       this.img,
       this.calories,
       this.ingredients,
-      this.tag});
+      this.tag,
+      this.modification});
 
   final String name, subtitle, description, img, tag;
   final double price, calories;
   final List<Ingredient> ingredients;
+  final Map<dynamic, int> modification;
 }
 
 class Ingredient {
-  // TO DO: revise this so that Ingredient is part of Food Item
   Ingredient({this.img, this.priceUpcharge, this.name, this.calories, this.isRemoved});
 
   final String img, name;

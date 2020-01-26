@@ -14,9 +14,8 @@ class CustomCard extends StatefulWidget {
 }
 
 class _CustomCardState extends State<CustomCard> {
-  TextEditingController txt = new TextEditingController(text: '1');
-  // for now fixed price
-  double price = 4.25;
+  
+  int counter = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -57,34 +56,27 @@ class _CustomCardState extends State<CustomCard> {
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  int num = int.parse(txt.text);
-                                  if (num > 1) {
-                                    num -= 1;
-                                  } else {
-                                    num -= 0;
+                                  if (counter > 1) {
+                                    counter--;
                                   }
-                                  txt.text = num.toString();
                                 });
                               },
                               icon: Icon(Icons.remove_circle_outline),
                             )),
                         Expanded(
-                            child: TextField(
-                          autofocus: false,
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20),
-                          controller: txt,
-                        )),
+                          child: Text(
+                            '$counter',
+                            style: stylingSmall(),
+                            textAlign: TextAlign.center,
+                          )
+                        ),
                         Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  int num = int.parse(txt.text);
-                                  num += 1;
-                                  txt.text = num.toString();
+                                  counter++;
                                 });
                               },
                               icon: Icon(Icons.add_circle_outline),
@@ -122,13 +114,14 @@ class _CustomCardState extends State<CustomCard> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: RaisedButton(
                               onPressed: () {
-                                pageViewKey.currentState.refresh();
+
+                                pageViewKey.currentState.refresh(widget.foodItem.price, counter);
                               },
                               child: Text(
                                 'Add to Cart',
                                 style: stylingSmall(),
                               ),
-                              color: Colors.greenAccent,//Color(0xFF3DDAD7),
+                              color: Colors.greenAccent, //Color(0xFF3DDAD7),
                             ))
                       ],
                     )
@@ -154,7 +147,6 @@ class _CustomCardState extends State<CustomCard> {
 
   @override
   void dispose() {
-    txt.dispose();
     super.dispose();
   }
 }
