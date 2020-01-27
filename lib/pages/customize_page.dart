@@ -3,16 +3,21 @@ import 'package:restaurant_business_layout/objects/cart.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 import 'package:restaurant_business_layout/tiles/ingredient_tile.dart';
 
+final customKey = GlobalKey<CustomizePageState>();
+
 class CustomizePage extends StatefulWidget {
-  CustomizePage({this.foodItem});
+  CustomizePage({Key key, this.foodItem}) : super(key: customKey);
 
   final FoodItem foodItem;
 
   @override
-  _CustomizePageState createState() => _CustomizePageState();
+  CustomizePageState createState() => CustomizePageState();
 }
 
-class _CustomizePageState extends State<CustomizePage> {
+class CustomizePageState extends State<CustomizePage> {
+
+  int num = 1;
+
   var tiles = [
     IngredientTile(
         img: 'assets/items/coconut_ingredient.png', ingredient: 'Coconut'),
@@ -23,8 +28,28 @@ class _CustomizePageState extends State<CustomizePage> {
         img: 'assets/items/cinnamon_ingredient.png', ingredient: 'Cinnamon'),
   ];
 
+  List<IngredientTile> ingredients;
+  
+  @override
+  void initState() {
+    ingredients = new List<IngredientTile>();
+    widget.foodItem.ingredients.forEach((Ingredient ingredient) {
+      ingredients.add(IngredientTile(img: ingredient.img, ingredient: ingredient.name,));
+    });
+    super.initState();
+  }
+
+  void remove(String ingredient) {
+    setState(() {
+      ingredients.removeWhere((item) {
+        return item.ingredient == ingredient;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Column(
@@ -48,6 +73,29 @@ class _CustomizePageState extends State<CustomizePage> {
                       Text(
                         widget.foodItem.subtitle,
                         style: stylingSmall(),
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left: 32.0),
+                            child: IconButton(onPressed: () {}, icon: Icon(Icons.remove), iconSize: 20,),
+                          ),
+                          Expanded(
+                            child: Text('$num', style: stylingSmall(), textAlign: TextAlign.center,),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 32.0),
+                            child: IconButton(onPressed: () {}, icon: Icon(Icons.add), iconSize: 20,),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: RaisedButton(
+                          onPressed: () {},
+                          child: Text('Add to Cart', style: stylingSmall(),),
+                          color: Colors.greenAccent,
+                        ),
                       )
                     ],
                   ),
@@ -116,9 +164,9 @@ class _CustomizePageState extends State<CustomizePage> {
                         ),
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemCount: tiles.length,
+                        itemCount: ingredients.length,
                         itemBuilder: (BuildContext context, int idx) {
-                          return tiles[idx];
+                          return ingredients[idx];
                         },
                       ),
                     ),
