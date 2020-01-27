@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_business_layout/objects/cart.dart';
+import 'package:restaurant_business_layout/pages/content_page.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 import 'package:restaurant_business_layout/tiles/ingredient_tile.dart';
 
@@ -15,41 +16,23 @@ class CustomizePage extends StatefulWidget {
 }
 
 class CustomizePageState extends State<CustomizePage> {
-
   int num = 1;
 
-  var tiles = [
-    IngredientTile(
-        img: 'assets/items/coconut_ingredient.png', ingredient: 'Coconut'),
-    IngredientTile(
-        img: 'assets/items/strawberries_ingredient.png',
-        ingredient: 'Strawberries'),
-    IngredientTile(
-        img: 'assets/items/cinnamon_ingredient.png', ingredient: 'Cinnamon'),
-  ];
-
   List<IngredientTile> ingredients;
-  
+
   @override
   void initState() {
     ingredients = new List<IngredientTile>();
     widget.foodItem.ingredients.forEach((Ingredient ingredient) {
-      ingredients.add(IngredientTile(img: ingredient.img, ingredient: ingredient.name,));
+      ingredients.add(IngredientTile(
+        ingredient: ingredient,
+      ));
     });
     super.initState();
   }
 
-  void remove(String ingredient) {
-    setState(() {
-      ingredients.removeWhere((item) {
-        return item.ingredient == ingredient;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Column(
@@ -78,22 +61,49 @@ class CustomizePageState extends State<CustomizePage> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(left: 32.0),
-                            child: IconButton(onPressed: () {}, icon: Icon(Icons.remove), iconSize: 20,),
+                            child: IconButton(
+                              onPressed: () {
+                                if (num > 1) {
+                                  setState(() {
+                                    num--;
+                                  });
+                                }
+                              },
+                              icon: Icon(Icons.remove),
+                              iconSize: 20,
+                            ),
                           ),
                           Expanded(
-                            child: Text('$num', style: stylingSmall(), textAlign: TextAlign.center,),
+                            child: Text(
+                              '$num',
+                              style: stylingSmall(),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(right: 32.0),
-                            child: IconButton(onPressed: () {}, icon: Icon(Icons.add), iconSize: 20,),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  num++;
+                                });
+                              },
+                              icon: Icon(Icons.add),
+                              iconSize: 20,
+                            ),
                           ),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: RaisedButton(
-                          onPressed: () {},
-                          child: Text('Add to Cart', style: stylingSmall(),),
+                          onPressed: () {
+                            ContentPageState.testItems.add(new FoodItem(calories: widget.foodItem.calories, description: widget.foodItem.description, img: widget.foodItem.img, ingredients: widget.foodItem.ingredients, name: widget.foodItem.name, price: widget.foodItem.price, subtitle: widget.foodItem.subtitle, tag: widget.foodItem.tag));
+                          },
+                          child: Text(
+                            'Add to Cart',
+                            style: stylingSmall(),
+                          ),
                           color: Colors.greenAccent,
                         ),
                       )

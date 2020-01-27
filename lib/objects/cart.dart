@@ -18,9 +18,10 @@ class FoodItem {
 }
 
 class Ingredient {
-  Ingredient({this.img, this.priceUpcharge, this.name, this.calories, this.isRemoved});
+  Ingredient({this.img, this.priceUpcharge, this.name, this.calories, this.isRemoved, this.counter});
 
   final String img, name;
   final double priceUpcharge, calories;
-  final bool isRemoved;
+  bool isRemoved = false;
+  int counter  = 1;
 }

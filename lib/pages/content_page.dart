@@ -19,85 +19,88 @@ List<Ingredient> testIngredients = [
       img: 'assets/items/coconut_ingredient.png',
       priceUpcharge: 1.25,
       calories: 200,
-      isRemoved: false),
+      isRemoved: false,
+      counter: 1),
   Ingredient(
       name: 'Strawberries',
       img: 'assets/items/strawberries_ingredient.png',
       priceUpcharge: 1.25,
       calories: 200,
-      isRemoved: false),
+      isRemoved: false,
+      counter: 1),
   Ingredient(
       name: 'Cinnamon',
       img: 'assets/items/cinnamon_ingredient.png',
       priceUpcharge: 0,
       calories: 200,
-      isRemoved: true),
-];
-
-var testItems = [
-  FoodItem(
-      name: 'Coconut',
-      subtitle: 'with strawberries',
-      description:
-          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
-      price: 4.25,
-      img: 'assets/items/desserts.png',
-      calories: 319.5,
-      ingredients: testIngredients,
-      tag: 'food_item_1'),
-  FoodItem(
-      name: 'Coconut',
-      subtitle: 'with strawberries',
-      description:
-          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
-      price: 4.25,
-      img: 'assets/items/desserts.png',
-      calories: 319.5,
-      ingredients: testIngredients,
-      tag: 'food_item_2'),
-  FoodItem(
-      name: 'Coconut',
-      subtitle: 'with strawberries',
-      description:
-          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
-      price: 4.25,
-      img: 'assets/items/desserts.png',
-      calories: 319.5,
-      ingredients: testIngredients,
-      tag: 'food_item_3'),
-  FoodItem(
-      name: 'Coconut',
-      subtitle: 'with strawberries',
-      description:
-          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
-      price: 4.25,
-      img: 'assets/items/desserts.png',
-      calories: 319.5,
-      ingredients: testIngredients,
-      tag: 'food_item_4'),
-  FoodItem(
-      name: 'Coconut',
-      subtitle: 'with strawberries',
-      description:
-          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
-      price: 4.25,
-      img: 'assets/items/desserts.png',
-      calories: 319.5,
-      ingredients: testIngredients,
-      tag: 'food_item_5'),
-  FoodItem(
-      name: 'Coconut',
-      subtitle: 'with strawberries',
-      description:
-          'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
-      price: 4.25,
-      img: 'assets/items/desserts.png',
-      calories: 319.5,
-      ingredients: testIngredients,
-      tag: 'food_item_6'),
+      isRemoved: true,
+      counter: 1),
 ];
 
 class ContentPageState extends State<ContentPage> {
+  static List<FoodItem> testItems = [
+    FoodItem(
+        name: 'Coconut',
+        subtitle: 'with strawberries',
+        description:
+            'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+        price: 4.25,
+        img: 'assets/items/desserts.png',
+        calories: 319.5,
+        ingredients: testIngredients,
+        tag: 'food_item_1'),
+    FoodItem(
+        name: 'Coconut',
+        subtitle: 'with strawberries',
+        description:
+            'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+        price: 4.25,
+        img: 'assets/items/desserts.png',
+        calories: 319.5,
+        ingredients: testIngredients,
+        tag: 'food_item_2'),
+    FoodItem(
+        name: 'Coconut',
+        subtitle: 'with strawberries',
+        description:
+            'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+        price: 4.25,
+        img: 'assets/items/desserts.png',
+        calories: 319.5,
+        ingredients: testIngredients,
+        tag: 'food_item_3'),
+    FoodItem(
+        name: 'Coconut',
+        subtitle: 'with strawberries',
+        description:
+            'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+        price: 4.25,
+        img: 'assets/items/desserts.png',
+        calories: 319.5,
+        ingredients: testIngredients,
+        tag: 'food_item_4'),
+    FoodItem(
+        name: 'Coconut',
+        subtitle: 'with strawberries',
+        description:
+            'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+        price: 4.25,
+        img: 'assets/items/desserts.png',
+        calories: 319.5,
+        ingredients: testIngredients,
+        tag: 'food_item_5'),
+    FoodItem(
+        name: 'Coconut',
+        subtitle: 'with strawberries',
+        description:
+            'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+        price: 4.25,
+        img: 'assets/items/desserts.png',
+        calories: 319.5,
+        ingredients: testIngredients,
+        tag: 'food_item_6'),
+  ];
+
   PageController controller;
   double total = 0.0;
   int items = 0;
@@ -235,7 +238,8 @@ class ContentPageState extends State<ContentPage> {
         child: Row(
           children: <Widget>[
             Expanded(
-              child: Text('Checkout: $items items selected ( \$${total.toStringAsFixed(2)} )',
+              child: Text(
+                  'Checkout: $items items selected ( \$${total.toStringAsFixed(2)} )',
                   style: stylingSmall()),
             ),
             Icon(

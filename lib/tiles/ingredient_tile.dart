@@ -1,46 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_business_layout/objects/cart.dart';
 import 'package:restaurant_business_layout/pages/customize_page.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 
 class IngredientTile extends StatefulWidget {
-  IngredientTile({this.ingredient, this.img});
+  IngredientTile({this.ingredient});
 
-  final String ingredient, img;
+  Ingredient ingredient;
 
   @override
   _TilePageState createState() => _TilePageState();
 }
 
 class _TilePageState extends State<IngredientTile> {
-  int num = 1;
-
-  _showDialog(String ingredient) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Remove Ingredient?'),
-          content: Text('Doing so will not have this ingredient in your order.'),
-          actions: <Widget>[
-            FlatButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel', style: TextStyle(color: Colors.orangeAccent),),
-            ),
-            RaisedButton(
-              onPressed: () {
-                customKey.currentState.remove(ingredient);
-                Navigator.of(context).pop();
-              },
-              child: Text('Proceed'),
-              color: Colors.greenAccent,
-            )
-          ],
-        );
-      }
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,33 +22,46 @@ class _TilePageState extends State<IngredientTile> {
         children: <Widget>[
           Container(
             width: 150,
-            child: Image.asset(widget.img, fit: BoxFit.fitHeight),
+            child: Image.asset(widget.ingredient.img, fit: BoxFit.fitHeight),
           ),
           Expanded(
             child: Center(
-              child: Text(widget.ingredient, style: stylingMedium()),
+              child: Text(widget.ingredient.name, style: stylingMedium()),
             ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      widget.ingredient.counter++;
+                    });
+                    
+                  },
                   icon: Icon(
                     Icons.add,
                     size: 20.0,
                   )),
               Text(
-                '$num',
+                '${widget.ingredient.counter}',
                 style: stylingSmall(),
                 textAlign: TextAlign.center,
               ),
               IconButton(
                   onPressed: () {
-                    if (num == 1) {
-                      _showDialog(widget.ingredient);
+                    if (widget.ingredient.counter == 1) {
+                      setState(() {
+                        widget.ingredient.isRemoved = true;
+                        widget.ingredient.counter--;
+                      });
+                      
+                    } else if (widget.ingredient.counter > 1){
+                      setState(() {
+                        widget.ingredient.counter--;
+                      });
                     } else {
-                      num--;
+
                     }
                   },
                   icon: Icon(
