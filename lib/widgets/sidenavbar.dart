@@ -74,7 +74,7 @@ class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMi
                 onTap: () {
                   //playAnimation(115.0);
                   //pageViewKey.currentState.changeSlide(0);
-                  launch('tel: 4075081813');
+                  launch('tel: 5555555555');
                 },
                 child: Icon(Icons.phone, size: 32.0, color: Colors.black,)),
           ),
@@ -84,7 +84,7 @@ class SideNavBarState extends State<SideNavBar> with SingleTickerProviderStateMi
                 onTap: () {
                   //playAnimation(180.0);
                   //pageViewKey.currentState.changeSlide(1);
-                  launch('mailto:<gallegom58@gmail.com>?subject=Customer Inquiry&body=');
+                  launch('mailto:<name@email.com>?subject=Customer Inquiry&body=');
                 },
                 child: Icon(Icons.email, size: 32.0, color: Colors.black,)),
           ),
