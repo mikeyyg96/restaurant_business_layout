@@ -9,12 +9,14 @@ class FoodItem {
       this.calories,
       this.ingredients,
       this.tag,
-      this.modification});
+      this.counter});
 
   final String name, subtitle, description, img, tag;
   final double price, calories;
   final List<Ingredient> ingredients;
-  final Map<dynamic, int> modification;
+  final Map<dynamic, int> counter;
+
+  Map test;
 }
 
 class Ingredient {
@@ -23,5 +25,5 @@ class Ingredient {
   final String img, name;
   final double priceUpcharge, calories;
   bool isRemoved = false;
-  int counter  = 1;
+  final Map<dynamic, int> counter;
 }

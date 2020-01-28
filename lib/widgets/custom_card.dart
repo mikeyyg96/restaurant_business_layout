@@ -114,8 +114,14 @@ class _CustomCardState extends State<CustomCard> {
                             padding: const EdgeInsets.only(right: 8.0),
                             child: RaisedButton(
                               onPressed: () {
-
-                                pageViewKey.currentState.refresh(widget.foodItem.price, counter);
+                                double modificationTotal = 0.0;
+                                widget.foodItem.ingredients.forEach((Ingredient ingredient) {
+                                  if (ingredient.counter['counter'] > 1) {
+                                    modificationTotal += ingredient.priceUpcharge * (ingredient.counter['counter'] - 1);
+                                  }
+                                  
+                                });
+                                pageViewKey.currentState.refresh(widget.foodItem.price, counter, modificationTotal);
                               },
                               child: Text(
                                 'Add to Cart',

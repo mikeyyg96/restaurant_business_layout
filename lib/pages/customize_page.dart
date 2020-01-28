@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_business_layout/objects/cart.dart';
 import 'package:restaurant_business_layout/pages/content_page.dart';
+import 'package:restaurant_business_layout/pages/frame_page.dart';
 import 'package:restaurant_business_layout/styling/styling.dart';
 import 'package:restaurant_business_layout/tiles/ingredient_tile.dart';
 
@@ -18,16 +19,19 @@ class CustomizePage extends StatefulWidget {
 class CustomizePageState extends State<CustomizePage> {
   int num = 1;
 
-  List<IngredientTile> ingredients;
+  List<IngredientTile> ingredientTile = new List<IngredientTile>();
+  List<Ingredient> ingredients = new List<Ingredient>();
 
   @override
   void initState() {
-    ingredients = new List<IngredientTile>();
-    widget.foodItem.ingredients.forEach((Ingredient ingredient) {
-      ingredients.add(IngredientTile(
+    ingredients = widget.foodItem.ingredients;
+    ingredients.forEach((Ingredient ingredient) {
+      ingredientTile.add(IngredientTile(
         ingredient: ingredient,
       ));
     });
+
+    
     super.initState();
   }
 
@@ -98,7 +102,14 @@ class CustomizePageState extends State<CustomizePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 32.0),
                         child: RaisedButton(
                           onPressed: () {
-                            ContentPageState.testItems.add(new FoodItem(calories: widget.foodItem.calories, description: widget.foodItem.description, img: widget.foodItem.img, ingredients: widget.foodItem.ingredients, name: widget.foodItem.name, price: widget.foodItem.price, subtitle: widget.foodItem.subtitle, tag: widget.foodItem.tag));
+                            double modification = 0.0;
+                            ingredients.forEach((Ingredient ingredient) {
+                              if (ingredient.counter['counter'] > 1) {
+                                modification += ingredient.priceUpcharge * (ingredient.counter['counter'] - 1);
+                              }
+                            });
+                            Navigator.pop(context);
+                            pageViewKey.currentState.refreshList(new FoodItem(calories: widget.foodItem.calories,  description: widget.foodItem.description, img: widget.foodItem.img, ingredients: ingredients, name: widget.foodItem.name, price: widget.foodItem.price, subtitle: widget.foodItem.subtitle, tag: widget.foodItem.tag + '1'), num, modification);
                           },
                           child: Text(
                             'Add to Cart',
@@ -176,7 +187,7 @@ class CustomizePageState extends State<CustomizePage> {
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: ingredients.length,
                         itemBuilder: (BuildContext context, int idx) {
-                          return ingredients[idx];
+                          return ingredientTile[idx];
                         },
                       ),
                     ),

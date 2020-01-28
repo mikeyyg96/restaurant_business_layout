@@ -35,7 +35,7 @@ class _TilePageState extends State<IngredientTile> {
               IconButton(
                   onPressed: () {
                     setState(() {
-                      widget.ingredient.counter++;
+                      widget.ingredient.counter['counter'] += 1;
                     });
                     
                   },
@@ -44,21 +44,21 @@ class _TilePageState extends State<IngredientTile> {
                     size: 20.0,
                   )),
               Text(
-                '${widget.ingredient.counter}',
+                '${widget.ingredient.counter['counter']}',
                 style: stylingSmall(),
                 textAlign: TextAlign.center,
               ),
               IconButton(
                   onPressed: () {
-                    if (widget.ingredient.counter == 1) {
+                    if (widget.ingredient.counter['counter'] == 1) {
                       setState(() {
                         widget.ingredient.isRemoved = true;
-                        widget.ingredient.counter--;
+                        widget.ingredient.counter['counter'] -= 1;
                       });
                       
-                    } else if (widget.ingredient.counter > 1){
+                    } else if (widget.ingredient.counter['counter'] > 1){
                       setState(() {
-                        widget.ingredient.counter--;
+                        widget.ingredient.counter['counter'] -= 1;
                       });
                     } else {
 

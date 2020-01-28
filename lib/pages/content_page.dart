@@ -13,32 +13,13 @@ class ContentPage extends StatefulWidget {
   ContentPageState createState() => ContentPageState();
 }
 
-List<Ingredient> testIngredients = [
-  Ingredient(
-      name: 'Coconuts',
-      img: 'assets/items/coconut_ingredient.png',
-      priceUpcharge: 1.25,
-      calories: 200,
-      isRemoved: false,
-      counter: 1),
-  Ingredient(
-      name: 'Strawberries',
-      img: 'assets/items/strawberries_ingredient.png',
-      priceUpcharge: 1.25,
-      calories: 200,
-      isRemoved: false,
-      counter: 1),
-  Ingredient(
-      name: 'Cinnamon',
-      img: 'assets/items/cinnamon_ingredient.png',
-      priceUpcharge: 0,
-      calories: 200,
-      isRemoved: true,
-      counter: 1),
-];
-
 class ContentPageState extends State<ContentPage> {
-  static List<FoodItem> testItems = [
+
+  List<FoodItem> cart = new List<FoodItem>();
+  List<Ingredient> ingredients = new List<Ingredient>();
+
+  /*
+  List<FoodItem> testItems = [
     FoodItem(
         name: 'Coconut',
         subtitle: 'with strawberries',
@@ -48,7 +29,7 @@ class ContentPageState extends State<ContentPage> {
         img: 'assets/items/desserts.png',
         calories: 319.5,
         ingredients: testIngredients,
-        tag: 'food_item_1'),
+        tag: 'food_item_1', test: {'counter': '3'}),
     FoodItem(
         name: 'Coconut',
         subtitle: 'with strawberries',
@@ -100,26 +81,85 @@ class ContentPageState extends State<ContentPage> {
         ingredients: testIngredients,
         tag: 'food_item_6'),
   ];
+  */
 
   PageController controller;
   double total = 0.0;
+  double modification_total = 0.0;
   int items = 0;
 
   @override
   void initState() {
+
+    ingredients.add(
+      new Ingredient(
+        calories: 100,
+        counter: {'counter' : 1},
+        img: 'assets/items/coconut_ingredient.png',
+        isRemoved: false,
+        name: 'coconuts',
+        priceUpcharge: 2.25,
+      )
+    );
+    ingredients.add(
+      new Ingredient(
+        calories: 100,
+        counter: {'counter' : 1},
+        img: 'assets/items/strawberries_ingredient.png',
+        isRemoved: false,
+        name: 'strawberries',
+        priceUpcharge: 1.25,
+      )
+    );
+    ingredients.add(
+      new Ingredient(
+        calories: 100,
+        counter: {'counter' : 1},
+        img: 'assets/items/cinnamon_ingredient.png',
+        isRemoved: false,
+        name: 'cinnamon',
+        priceUpcharge: 1.50,
+      )
+    );
+
+    ingredients.forEach((Ingredient ingredient) {
+      modification_total += (ingredient.priceUpcharge * ingredient.counter['counter']);
+    });
+
+
+    cart.add(new FoodItem(
+      calories: 420,
+      counter: {'counter': 1},
+      description: 'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+      img: 'assets/items/desserts.png',
+      ingredients: ingredients,
+      price: 4.25,
+      name: 'Coconut',
+      subtitle: 'with strawberries',
+      tag: 'coconut_1'
+    ));
     controller = PageController(initialPage: 4);
     super.initState();
   }
 
-  void refresh(double price, int counter) {
+  void refresh(double price, int counter, double modification) {
     setState(() {
-      total += (price * counter);
+      total += (price * counter) + modification;
+      items += counter;
+    });
+  }
+
+  void refreshList(FoodItem foodItem, int counter, double modification) {
+    setState(() {
+      cart.add(foodItem);
+      total += (foodItem.price * counter) + (modification * counter);
       items += counter;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    print('hello, ${ingredients[0].counter['counter']}');
     return Material(
         child: PageView(
       controller: controller,
@@ -216,10 +256,10 @@ class ContentPageState extends State<ContentPage> {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: testItems.length,
+        itemCount: cart.length,
         itemBuilder: (BuildContext ctx, int idx) {
           return CustomCard(
-            foodItem: testItems[idx],
+            foodItem: cart[idx],
           );
         },
       ),
@@ -232,7 +272,7 @@ class ContentPageState extends State<ContentPage> {
       height: MediaQuery.of(context).size.height / 7,
       child: RaisedButton(
         onPressed: () {
-          frameKey.currentState.changeSlide(1, cart: testItems);
+          frameKey.currentState.changeSlide(1, cart: cart);
         },
         color: Colors.greenAccent, //Color(0xFF3DDAD7),
         child: Row(
