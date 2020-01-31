@@ -15,8 +15,9 @@ class ContentPage extends StatefulWidget {
 
 class ContentPageState extends State<ContentPage> {
 
-  List<FoodItem> cart = new List<FoodItem>();
-  List<Ingredient> ingredients = new List<Ingredient>();
+  static List<FoodItem> cart = new List<FoodItem>();
+  static List<FoodItem> menuItems = new List<FoodItem>();
+  static List<Ingredient> ingredients = new List<Ingredient>();
 
   /*
   List<FoodItem> testItems = [
@@ -123,11 +124,12 @@ class ContentPageState extends State<ContentPage> {
     );
 
     ingredients.forEach((Ingredient ingredient) {
-      modification_total += (ingredient.priceUpcharge * ingredient.counter['counter']);
+      if (ingredient.counter['counter'] > 1) {
+        modification_total += (ingredient.priceUpcharge * ingredient.counter['counter'] - 1);
+      }
     });
 
-
-    cart.add(new FoodItem(
+    menuItems.add(new FoodItem(
       calories: 420,
       counter: {'counter': 1},
       description: 'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
@@ -138,7 +140,20 @@ class ContentPageState extends State<ContentPage> {
       subtitle: 'with strawberries',
       tag: 'coconut_1'
     ));
+
+    // cart.add(new FoodItem(
+    //   calories: 420,
+    //   counter: {'counter': 1},
+    //   description: 'Our Coconut Strawberries are a great garnish for plates of finger sandwiches, or even for fancying up our cookie and other dessert trays!',
+    //   img: 'assets/items/desserts.png',
+    //   ingredients: ingredients,
+    //   price: 4.25,
+    //   name: 'Coconut',
+    //   subtitle: 'with strawberries',
+    //   tag: 'coconut_1'
+    // ));
     controller = PageController(initialPage: 4);
+    //total = cart[0].price;
     super.initState();
   }
 
@@ -256,10 +271,10 @@ class ContentPageState extends State<ContentPage> {
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
         scrollDirection: Axis.horizontal,
-        itemCount: cart.length,
+        itemCount: menuItems.length,
         itemBuilder: (BuildContext ctx, int idx) {
           return CustomCard(
-            foodItem: cart[idx],
+            foodItem: menuItems[idx],
           );
         },
       ),
@@ -272,14 +287,14 @@ class ContentPageState extends State<ContentPage> {
       height: MediaQuery.of(context).size.height / 7,
       child: RaisedButton(
         onPressed: () {
-          frameKey.currentState.changeSlide(1, cart: cart);
+          frameKey.currentState.changeSlide(1, cart, total);
         },
         color: Colors.greenAccent, //Color(0xFF3DDAD7),
         child: Row(
           children: <Widget>[
             Expanded(
               child: Text(
-                  'Checkout: $items items selected ( \$${total.toStringAsFixed(2)} )',
+                  'Checkout: ${cart.length} items selected ( \$${total.toStringAsFixed(2)} )',
                   style: stylingSmall()),
             ),
             Icon(

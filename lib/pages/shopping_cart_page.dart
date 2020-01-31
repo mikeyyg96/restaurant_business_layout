@@ -5,9 +5,10 @@ import 'package:restaurant_business_layout/styling/styling.dart';
 import 'package:restaurant_business_layout/tiles/cart_tile.dart';
 
 class ShoppingCartPage extends StatefulWidget {
-  ShoppingCartPage({this.cart});
+  ShoppingCartPage({this.cart, this.total});
 
   final List<FoodItem> cart;
+  final double total;
 
   @override
   _ShoppingCartState createState() => _ShoppingCartState();
@@ -15,7 +16,7 @@ class ShoppingCartPage extends StatefulWidget {
 
 class _ShoppingCartState extends State<ShoppingCartPage> {
   Future<bool> _willPopCallback() async {
-    frameKey.currentState.changeSlide(0, cart: widget.cart);
+    frameKey.currentState.changeSlide(0, widget.cart, widget.total);
 
     return false;
   }
@@ -96,7 +97,7 @@ class _ShoppingCartState extends State<ShoppingCartPage> {
   Widget squareButton() {
     return GestureDetector(
       onTap: () {
-        frameKey.currentState.changeSlide(0, cart: widget.cart);
+        frameKey.currentState.changeSlide(0, widget.cart, widget.total);
       },
       child: Container(
         height: 50,

@@ -22,9 +22,11 @@ class FramePageState extends State<FramePage> {
   bool isScrollable = false;
 
   List<FoodItem> cart;
+  double total;
 
-  void changeSlide(int idx, {List<FoodItem> cart}) {
+  void changeSlide(int idx, List<FoodItem> cart, double total) {
     setState(() {
+      this.total = total;
       this.cart = cart;
       pageController.animateToPage(idx,
           duration: Duration(milliseconds: 750), curve: Curves.slowMiddle);
@@ -61,7 +63,7 @@ class FramePageState extends State<FramePage> {
                 ),
               ],
             ),
-            ShoppingCartPage(cart: cart,)
+            ShoppingCartPage(cart: cart, total: total)
           ],
         ),
       ),
